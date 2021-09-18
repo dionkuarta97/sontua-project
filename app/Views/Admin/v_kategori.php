@@ -28,9 +28,8 @@
 
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <div style="margin-left: 90px;" class="col-md-2">
-                                        <button type="button" data-toggle="modal" data-target="#modalTambah" class="btn btn-block btn-outline-primary">Tambah Kategori <i class="fas fa-plus"></i></button>
-                                    </div>
+                                    <button type="button" data-toggle="modal" data-target="#modalTambah" class="btn btn-outline-primary">Tambah Kategori <i class="fas fa-plus"></i></button>
+
 
                                 </div>
                                 <br>
@@ -40,33 +39,32 @@
                                     </div>
                                 <?php } ?>
                                 <br>
-                                <div style="margin-left: 90px;" class="col-md-10">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align: center;">No</th>
-                                                <th>Kategori</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <?php $no = 1;
-                                                foreach ($get_kategori as $key => $value) { ?>
-                                                    <td style="text-align: center;"><?= $no++; ?></td>
-                                                    <td><?= $value['kategori']; ?></td>
-                                                    <td style="text-align: right;"><button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_kategori']; ?>" class="btn btn-warning btn-sm">Edit Kategori </button>
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">No</th>
+                                            <th>Kategori</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <?php $no = 1;
+                                            foreach ($get_kategori as $key => $value) { ?>
+                                                <td style="text-align: center;"><?= $no++; ?></td>
+                                                <td><?= $value['kategori']; ?></td>
+                                                <td style="text-align: right;"><button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_kategori']; ?>" class="btn btn-warning btn-sm">Edit Kategori </button>
 
-                                                        <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/Kategori/hapus_kategori/<?= $value['id_kategori']; ?>" class="btn btn-danger btn-sm"> Hapus Kategori</a>
+                                                    <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/Kategori/hapus_kategori/<?= $value['id_kategori']; ?>" class="btn btn-danger btn-sm"> Hapus Kategori</a>
 
-                                                    </td>
-                                            </tr>
-                                        <?php }; ?>
-                                        </tbody>
+                                                </td>
+                                        </tr>
+                                    <?php }; ?>
+                                    </tbody>
 
-                                    </table>
-                                </div>
+                                </table>
                             </div>
+
                             <!-- /.card-body -->
                         </div>
                     </div>

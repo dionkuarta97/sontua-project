@@ -28,9 +28,9 @@
 
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <div style="margin-left: 90px;" class="col-md-2">
-                                        <button data-toggle="modal" data-target="#modalTambah" type="button" class="btn btn-block btn-outline-primary">Tambah Mitra <i class="fas fa-plus"></i></button>
-                                    </div>
+
+                                    <button data-toggle="modal" data-target="#modalTambah" type="button" class="btn btn-outline-primary">Tambah Mitra <i class="fas fa-plus"></i></button>
+
 
                                 </div>
                                 <br>
@@ -40,35 +40,34 @@
                                     </div>
                                 <?php } ?>
                                 <br>
-                                <div style="margin-left: 90px;" class="col-md-10">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Mitra</th>
-                                                <th>Kategori</th>
-                                                <th>Bagi Hasil (%)</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <?php $no = 1;
-                                                foreach ($get_mitra as $key => $value) { ?>
-                                                    <td><?= $no++; ?></td>
-                                                    <td><?= $value['nama']; ?></td>
-                                                    <td><?= $value['kategori']; ?></td>
-                                                    <td><?= $value['bagi_hasil']; ?>%</td>
-                                                    <td style="text-align: right;"><button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_mitra']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                                                        <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/Mitra/hapus_mitra/<?= $value['id_mitra']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                        <a href="<?= base_url(); ?>/Mitra/detail/<?= $value['id_mitra']; ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
-                                                    </td>
-                                            </tr>
-                                        <?php }; ?>
-                                        </tbody>
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Mitra</th>
+                                            <th>Kategori</th>
+                                            <th>Bagi Hasil (%)</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <?php $no = 1;
+                                            foreach ($get_mitra as $key => $value) { ?>
+                                                <td><?= $no++; ?></td>
+                                                <td><?= $value['nama']; ?></td>
+                                                <td><?= $value['kategori']; ?></td>
+                                                <td><?= $value['bagi_hasil']; ?>%</td>
+                                                <td style="text-align: right;"><button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_mitra']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+                                                    <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/Mitra/hapus_mitra/<?= $value['id_mitra']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                    <a href="<?= base_url(); ?>/Mitra/detail/<?= $value['id_mitra']; ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+                                                </td>
+                                        </tr>
+                                    <?php }; ?>
+                                    </tbody>
 
-                                    </table>
-                                </div>
+                                </table>
+
                             </div>
                             <!-- /.card-body -->
                         </div>
