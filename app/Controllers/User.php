@@ -32,11 +32,13 @@ class User extends BaseController
     {
 
         $id_mitra = session()->get('id_mitra');
+        $nama_mitra = session()->get('nama');
         $data = [
-            'tittle' => 'Product Mitra',
+            'tittle' => 'Product',
             'get_kategori' => $this->UserModel->get_kategori($id_mitra),
             'get_product' => $this->UserModel->get_product($id, $id_mitra),
             'get_nama' => $this->UserModel->get_namaKategori($id, $id_mitra),
+            'nama_mitra' => $nama_mitra,
             'id' => $id,
             'isi' => 'User/v_product',
         ];

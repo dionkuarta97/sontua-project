@@ -61,16 +61,17 @@ class Auth extends BaseController
             $hak_akses = $this->request->getPost('level');
             $username = $this->request->getPost('username');
             $password = $this->request->getPost('password');
-            $cek_user = $this->AuthModel->login_user($username, $password, $hak_akses);
+            $cek_admin = $this->AuthModel->login_admin($username, $password, $hak_akses);
+            $cek_mitra = $this->AuthModel->login_mitra($username, $password, $hak_akses);
 
             if ($hak_akses == 1) {
 
 
-                if ($cek_user) {
+                if ($cek_admin) {
 
                     session()->set('log', true);
-                    session()->set('username', $cek_user['username']);
-                    session()->set('nama', $cek_user['nama']);
+                    session()->set('username', $cek_admin['username']);
+                    session()->set('nama', $cek_admin['nama']);
                     session()->set('level', $hak_akses);
 
                     return redirect()->to(base_url('Admin'));
@@ -81,12 +82,12 @@ class Auth extends BaseController
             } else if ($hak_akses == 2) {
 
 
-                if ($cek_user) {
+                if ($cek_mitra) {
 
                     session()->set('log', true);
-                    session()->set('username', $cek_user['username']);
-                    session()->set('nama', $cek_user['nama']);
-                    session()->set('id_mitra', $cek_user['id_mitra']);
+                    session()->set('username', $cek_mitra['username']);
+                    session()->set('nama', $cek_mitra['nama']);
+                    session()->set('id_mitra', $cek_mitra['id_mitra']);
                     session()->set('level', $hak_akses);
 
                     return redirect()->to(base_url('User/'));
