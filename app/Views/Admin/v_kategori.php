@@ -53,7 +53,8 @@
                                             foreach ($get_kategori as $key => $value) { ?>
                                                 <td style="text-align: center;"><?= $no++; ?></td>
                                                 <td><?= $value['kategori']; ?></td>
-                                                <td style="text-align: right;"><button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_kategori']; ?>" class="btn btn-warning btn-sm">Edit Kategori </button>
+                                                <td style="text-align: right;">
+                                                    <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_kategori']; ?>" class="btn btn-warning btn-sm">Edit Kategori </button>
 
                                                     <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/Kategori/hapus_kategori/<?= $value['id_kategori']; ?>" class="btn btn-danger btn-sm"> Hapus Kategori</a>
 

@@ -14,7 +14,7 @@ class ProductBumnagModel extends Model
 
     public function get_product($id)
     {
-        return $this->db->table('tb_ProductBumnag')
+        return $this->db->table('tb_product')
             ->where('id_kategori', $id)
             ->get()
             ->getResultArray();
@@ -28,6 +28,17 @@ class ProductBumnagModel extends Model
 
     public function simpan_product($data)
     {
-        return $this->db->table('tb_ProductBumnag')->insert($data);
+        return $this->db->table('tb_product')->insert($data);
+    }
+
+    public function edit_product($data, $id)
+    {
+        return $this->db->table('tb_product')->update($data, ['id_product' => $id]);
+    }
+
+    public function hapus_product($id)
+    {
+
+        return $this->db->table('tb_product')->delete(['id_product' => $id]);
     }
 }

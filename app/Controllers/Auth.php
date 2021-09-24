@@ -20,6 +20,7 @@ class Auth extends BaseController
         $data = [
             'tittle' => 'Login',
             'isi' => 'v_login',
+            'get_kategori' => $this->AuthModel->get_kategori(),
         ];
 
         echo view('layout/v_wrapper', $data);

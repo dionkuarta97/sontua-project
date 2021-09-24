@@ -61,11 +61,13 @@
                                             foreach ($get_product as $key => $value) { ?>
                                                 <td><?= $no++; ?></td>
                                                 <td align="center"><img src="<?= base_url() ?>/img/<?= $value['img_product']; ?>" width="200"></td>
-                                                <td><?= $value['nama_productBumnag']; ?></td>
-                                                <td>Rp. <?= format_rupiah($value['harga_productBumnag']); ?></td>
+                                                <td><?= $value['nama_product']; ?></td>
+                                                <td>Rp. <?= format_rupiah($value['harga_product']); ?></td>
                                                 <td align="center">
-                                                    <a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                                    <a href="" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                                    <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_product']; ?>" class="btn btn-warning btn-sm">Edit</button>
+
+                                                    <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/ProductBumnag/hapus_product/<?= $value['id_kategori']; ?>/<?= $value['id_product']; ?>" class="btn btn-danger btn-sm"> Hapus</a>
+
                                                 </td>
                                         </tr>
                                     <?php }; ?>
@@ -86,9 +88,8 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="modalTambah">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Product</h5>
@@ -98,23 +99,23 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <?php foreach ($get_product as $key => $value) {; ?>
-                        <?= form_open_multipart(base_url('ProductBumnag/proses/' . $value['id_kategori'])); ?>
+                    <?php foreach ($get_kategori as $key => $value) {; ?>
+                        <?= form_open_multipart('ProductBumnag/proses/' . $value['id_kategori']) ?>
                     <?php }; ?>
                     <div class="card-body col-sm-12">
                         <div class="row">
 
 
                             <div class="form-group col-md-12">
-                                <label for="nama_productBumnag">Nama Product</label>
-                                <input type="text" name="nama_productBumnag" id="nama_productBumnag" class="form-control">
+                                <label for="nama_product">Nama Product</label>
+                                <input type="text" name="nama_product" id="nama_product" class="form-control">
 
                             </div>
 
 
                             <div class="form-group col-md-12">
-                                <label for="harga_productBumnag">Harga Product</label>
-                                <input type="text" name="harga_productBumnag" id="harga_productBumnag" class="form-control">
+                                <label for="harga_product">Harga Product</label>
+                                <input type="text" name="harga_product" id="harga_product" class="form-control">
 
                             </div>
 
@@ -138,17 +139,66 @@
 
                         </div>
                     </div>
-
-                    <!-- /.card-body -->
-                    <div class=" card-footer">
-                        <div class="form-group">
-                            <?= form_submit('Send', 'Simpan') ?>
-                        </div>
-                    </div>
-                    <?= form_close() ?>
                 </div>
             </div>
-            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
         </div>
+        <?= form_close(); ?>
     </div>
 </div>
+
+
+<?php $no = 0;
+foreach ($get_product as $key => $value) : $no++; ?>
+    <div class="modal fade" id="modalEdit<?= $value['id_product']; ?>">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <?= form_open_multipart('ProductBumnag/edit_product/' . $value['id_kategori'] . '/' . $value['id_product']) ?>
+
+
+                        <div class="form-group col-md-12">
+                            <label for="nama_product">Nama Product</label>
+                            <input type="text" name="nama_product" id="nama_product" class="form-control" value="<?= $value['nama_product']; ?>">
+
+                        </div>
+
+
+                        <div class="form-group col-md-12">
+                            <label for="harga_product">Harga Product</label>
+                            <input type="text" name="harga_product" id="harga_product" class="form-control" value="<?= $value['harga_product']; ?>">
+
+                        </div>
+
+                        <?php if ($id == 1) {; ?>
+                            <div class="form-group col-md-12">
+                                <label for=" jenis_product">Jenis Product</label>
+                                <select class="form-control" name="jenis_product" id="jenis_product">
+                                    <option value="<?= $value['jenis_product']; ?>"><?= $value['jenis_product'] == 1 ? 'Makanan' : 'Minuman'; ?></option>
+                                    <option value="1">Makanan</option>
+                                    <option value="2">Minuman</option>
+                                </select>
+                            </div>
+                        <?php }; ?>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </div>
+            </div>
+            <?= form_close(); ?>
+        </div>
+    </div>
+<?php endforeach; ?>

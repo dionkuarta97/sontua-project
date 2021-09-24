@@ -16,4 +16,10 @@ class AuthModel extends Model
             'hak_akses' => $hak_akses
         ])->get()->getRowArray();
     }
+
+    public function get_kategori()
+    {
+        return $this->db->table('tb_kategori')
+            ->get()->getResultArray();
+    }
 }
