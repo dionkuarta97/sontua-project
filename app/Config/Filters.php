@@ -20,6 +20,7 @@ class Filters extends BaseConfig
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
         'Filteradmin' => \App\Filters\Filteradmin::class,
+        'Filteruser' => \App\Filters\Filteruser::class,
     ];
 
     /**
@@ -36,6 +37,11 @@ class Filters extends BaseConfig
                     'auth', 'auth/*',
                 ],
             ],
+            'Filteruser' => [
+                'except' => [
+                    'auth', 'auth/*',
+                ],
+            ],
             // 'honeypot',
             // 'csrf',
 
@@ -48,6 +54,13 @@ class Filters extends BaseConfig
                     'kategori', 'kategori/*',
                     'ProductBumnag', 'ProductBumnag/*'
                 ],
+
+            ],
+            'Filteruser' => [
+                'except' => [
+                    'user', 'user/*',
+                ],
+
             ],
             'toolbar',
             // 'honeypot',

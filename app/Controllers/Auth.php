@@ -78,6 +78,22 @@ class Auth extends BaseController
                     session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');
                     return redirect()->to(base_url('auth/index'));
                 }
+            } else if ($hak_akses == 2) {
+
+
+                if ($cek_user) {
+
+                    session()->set('log', true);
+                    session()->set('username', $cek_user['username']);
+                    session()->set('nama', $cek_user['nama']);
+                    session()->set('id_mitra', $cek_user['id_mitra']);
+                    session()->set('level', $hak_akses);
+
+                    return redirect()->to(base_url('User/'));
+                } else {
+                    session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');
+                    return redirect()->to(base_url('auth/index'));
+                }
             }
         } else {
             session()->setFlashdata('errors', \config\Services::validation()->getErrors());
