@@ -66,7 +66,7 @@
                                                 <td align="center">
                                                     <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_product']; ?>" class="btn btn-warning btn-sm">Edit</button>
 
-                                                    <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/ProductBumnag/hapus_product/<?= $value['id_kategori']; ?>/<?= $value['id_product']; ?>" class="btn btn-danger btn-sm"> Hapus</a>
+                                                    <a href="<?= base_url(); ?>/ProductBumnag/hapus_product/<?= $value['id_kategori']; ?>/<?= $value['id_product']; ?>" class="btn btn-danger btn-sm konfirm"> Hapus</a>
 
                                                 </td>
                                         </tr>

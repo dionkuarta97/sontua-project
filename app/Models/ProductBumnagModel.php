@@ -12,13 +12,16 @@ class ProductBumnagModel extends Model
             ->get()->getResultArray();
     }
 
+
     public function get_product($id)
     {
         return $this->db->table('tb_product')
             ->where('id_kategori', $id)
+            ->where('id_mitra', 0)
             ->get()
             ->getResultArray();
     }
+
     public function get_namaKategori($id)
     {
         return $this->db->table('tb_kategori')

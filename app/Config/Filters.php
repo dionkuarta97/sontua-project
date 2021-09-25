@@ -21,6 +21,7 @@ class Filters extends BaseConfig
         'honeypot' => Honeypot::class,
         'Filteradmin' => \App\Filters\Filteradmin::class,
         'Filteruser' => \App\Filters\Filteruser::class,
+        'Filterkasir' => \App\Filters\Filterkasir::class,
     ];
 
     /**
@@ -42,6 +43,11 @@ class Filters extends BaseConfig
                     'auth', 'auth/*',
                 ],
             ],
+            'Filterkasir' => [
+                'except' => [
+                    'auth', 'auth/*',
+                ],
+            ],
             // 'honeypot',
             // 'csrf',
 
@@ -59,6 +65,12 @@ class Filters extends BaseConfig
             'Filteruser' => [
                 'except' => [
                     'user', 'user/*',
+                ],
+
+            ],
+            'Filterkasir' => [
+                'except' => [
+                    'kasir', 'kasir/*',
                 ],
 
             ],

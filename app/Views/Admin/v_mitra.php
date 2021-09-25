@@ -33,13 +33,7 @@
 
 
                                 </div>
-                                <br>
-                                <?php if (!empty(session()->getFlashdata('sukses'))) { ?>
-                                    <div align="center" class="alert alert-success">
-                                        <?= session()->getFlashdata('sukses'); ?>
-                                    </div>
-                                <?php } ?>
-                                <br>
+                                <div class="flash-data" data-flashdata="<?= session()->getFlashdata('sukses'); ?>"></div>
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -59,7 +53,7 @@
                                                 <td><?= $value['kategori']; ?></td>
                                                 <td><?= $value['bagi_hasil']; ?>%</td>
                                                 <td style="text-align: right;"><button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_mitra']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                                                    <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/Mitra/hapus_mitra/<?= $value['id_mitra']; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                    <a href="<?= base_url(); ?>/Mitra/hapus_mitra/<?= $value['id_mitra']; ?>" class="btn btn-danger btn-sm konfirm"><i class="fas fa-trash"></i></a>
                                                     <a href="<?= base_url(); ?>/Mitra/detail/<?= $value['id_mitra']; ?>" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
                                                 </td>
                                         </tr>

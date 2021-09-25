@@ -29,6 +29,19 @@ class AuthModel extends Model
             ])->get()->getRowArray();
     }
 
+
+    public function login_kasir($username, $password, $hak_akses)
+    {
+
+        return $this->db->table('tb_user')
+            ->join('tb_kasir', 'tb_kasir.id_kasir = tb_user.id_kasir')
+            ->where([
+                'username' => $username,
+                'password' => $password,
+                'hak_akses' => $hak_akses
+            ])->get()->getRowArray();
+    }
+
     public function get_kategori()
     {
         return $this->db->table('tb_kategori')

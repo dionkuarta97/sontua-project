@@ -65,6 +65,7 @@
                                         <option value="">--Hak Akses--</option>
                                         <option value="1">Admin</option>
                                         <option value="2">Mitra</option>
+                                        <option value="3">Kasir</option>
                                     </select>
                                 </div>
                                 <div class="row">

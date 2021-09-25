@@ -63,6 +63,7 @@ class Auth extends BaseController
             $password = $this->request->getPost('password');
             $cek_admin = $this->AuthModel->login_admin($username, $password, $hak_akses);
             $cek_mitra = $this->AuthModel->login_mitra($username, $password, $hak_akses);
+            $cek_kasir = $this->AuthModel->login_kasir($username, $password, $hak_akses);
 
             if ($hak_akses == 1) {
 
@@ -71,7 +72,7 @@ class Auth extends BaseController
 
                     session()->set('log', true);
                     session()->set('username', $cek_admin['username']);
-                    session()->set('nama', $cek_admin['nama']);
+
                     session()->set('level', $hak_akses);
 
                     return redirect()->to(base_url('Admin'));
@@ -90,7 +91,23 @@ class Auth extends BaseController
                     session()->set('id_mitra', $cek_mitra['id_mitra']);
                     session()->set('level', $hak_akses);
 
-                    return redirect()->to(base_url('User/'));
+                    return redirect()->to(base_url('user'));
+                } else {
+                    session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');
+                    return redirect()->to(base_url('auth/index'));
+                }
+            } else if ($hak_akses == 3) {
+
+
+                if ($cek_kasir) {
+
+                    session()->set('log', true);
+                    session()->set('username', $cek_kasir['username']);
+                    session()->set('nama', $cek_kasir['nama']);
+                    session()->set('id_kasir', $cek_kasir['id_kasir']);
+                    session()->set('level', $hak_akses);
+
+                    return redirect()->to(base_url('Kasir'));
                 } else {
                     session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');
                     return redirect()->to(base_url('auth/index'));
