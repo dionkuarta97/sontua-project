@@ -16,7 +16,9 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item active">List</li>
+                                <li class="breadcrumb-item"><a href="<?= base_url('Kasir/pembeli/' . $id); ?>">List Pembeli</a></li>
+                                <li class="breadcrumb-item"><a href="<?= base_url('Kasir/pembayaran/' . $id . '/' . $id_pembeli); ?>">Pembayaran</a></li>
+                                <li class="breadcrumb-item active">List Product</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -35,12 +37,12 @@
                                     <li class="nav-item"><a class="nav-link <?= $cari != 1 && $cari != 2 ? 'active' : ''; ?>" href="<?= base_url('Kasir/list/' . $id); ?>">Semua</a></li>
 
                                     <li class="nav-item">
-                                        <form action="<?= base_url('Kasir/list/' . $id); ?>" method="get">
+                                        <form action="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>" method="get">
                                             <button type="submit" name="cari" class="btn btn-link nav-link <?= $cari == 1 ? 'active' : ''; ?>" value="1">Makanan</button>
                                         </form>
                                     </li>
                                     <li class="nav-item">
-                                        <form action="<?= base_url('Kasir/list/' . $id); ?>" method="get">
+                                        <form action="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>" method="get">
                                             <button type="submit" name="cari" class="btn btn-link nav-link <?= $cari == 2 ? 'active' : ''; ?>" value="2">Minuman</button>
                                         </form>
                                     </li>
@@ -51,7 +53,7 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="<?= base_url('Kasir/list/' . $id); ?>" method="get">
+                                    <form action="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>" method="get">
                                         <div class="input-group">
                                             <input type="search" name="cari" class="form-control form-control-lg" placeholder="Type your keywords here">
                                             <div class="input-group-append">
@@ -96,6 +98,7 @@
                                                         <form action="<?= base_url('/Kasir/pesan/' . $value['id_product']); ?>" method="post">
                                                             <div class="row">
                                                                 <div class="col-md-6">
+                                                                    <input type="hidden" name="id_pembeli" value="<?= $id_pembeli; ?>">
                                                                     <input type="number" min="1" class="form-control" name="jumlah" value="1">
                                                                     <input type="hidden" name="id_kategori" value="<?= $value['id_kategori']; ?>">
                                                                 </div>
@@ -151,7 +154,7 @@
                                     <div class="col-md-8">
                                         <span class="text-muted"><?= $value['name']; ?></span>
                                         <hr>
-                                        <form action="<?= base_url('Kasir/update/' . $id); ?>" method="post">
+                                        <form action="<?= base_url('Kasir/update/' . $id . '/' . $id_pembeli); ?>" method="post">
                                             <div class="col-md-12">
                                                 <div class="row">
 
@@ -163,7 +166,7 @@
                                                         <button type="submit" class="btn btn-warning konfirmF">
                                                             Edit
                                                         </button>
-                                                        <a href="<?= base_url('Kasir/remove/' . $value['id']); ?>" class="btn btn-danger konfirm">
+                                                        <a href="<?= base_url('Kasir/remove/' . $value['id'] . '/' . $id_pembeli); ?>" class="btn btn-danger konfirm">
                                                             Hapus
                                                         </a>
                                                     </div>
@@ -171,6 +174,7 @@
                                                 </div>
                                             </div>
                                         </form>
+
                                         <hr>
                                         <span>Rp. <?= format_rupiah($value['price'] * $value['quantity']); ?></span>
                                     </div>
@@ -178,15 +182,26 @@
                             </div>
                             <hr>
                         <?php }; ?>
-                        <span class="text-muted" style="float:right;">Total Semua : Rp. <?= $total; ?></span>
+                        <span class="text-muted" style="float:right;">Total Semua : Rp. <?= format_rupiah($total); ?></span>
                     <?php }; ?>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
-                <button type="submit" class="btn btn-primary">Tambah</button>
-            </div>
-        </div>
 
+            <form action="<?= base_url('Kasir/tambah_orderan'); ?>" method="post">
+                <div class="modal-footer">
+                    <?php foreach ($items as $key => $value) { ?>
+                        <input type="hidden" name="id_product[]" value="<?= $value['id']; ?>">
+                        <input type="hidden" name="id_kasir[]" value="<?= $value['id_kasir']; ?>">
+                        <input type="hidden" name="jumlah[]" value="<?= $value['quantity']; ?>">
+                        <input type="hidden" name="id_kategori[]" value="<?= $value['id_kategori']; ?>">
+                        <input type="hidden" name="id_mitra[]" value="<?= $value['id_mitra']; ?>">
+                        <input type="hidden" name="id_pembeli[]" value="<?= $value['id_pembeli']; ?>">
+                    <?php }; ?>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                    <button type="submit" class="btn btn-primary konfirmF">Pesan Semua</button>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>

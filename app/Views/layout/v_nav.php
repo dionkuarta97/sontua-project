@@ -86,11 +86,11 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                List Product
+                                List Pembeli
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php foreach ($get_kategori as $key => $value) { ?>
-                                    <a class="dropdown-item" href="<?= base_url(); ?>/Kasir/list/<?= $value['id_kategori']; ?>"><?= $value['kategori']; ?></a>
+                                    <a class="dropdown-item" href="<?= base_url(); ?>/Kasir/pembeli/<?= $value['id_kategori']; ?>"><?= $value['kategori']; ?></a>
                                     <div class="dropdown-divider"></div>
                                 <?php }; ?>
                             </div>
