@@ -120,8 +120,8 @@ class Kasir extends BaseController
                     ->paginate(9, 'peoples'),
                 'pager' => $product->pager,
                 'cari' => $cari,
-                'items' => $this->cart->totals(),
-                'total' => $this->cart->count_totals(),
+                'items' => $this->cart->totals($id_pembeli),
+                'total' => $this->cart->count_totals($id_pembeli),
                 'pesanan' => is_array($session) ? array_values($session) : array(),
                 'id_pembeli' => $id_pembeli
             ];

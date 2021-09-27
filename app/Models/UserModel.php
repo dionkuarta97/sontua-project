@@ -47,4 +47,58 @@ class UserModel extends Model
 
         return $this->db->table('tb_product')->delete(['id_product' => $id]);
     }
+
+    public function count_order_today($id_mitra)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'DATE(tb_pembeli.created_at)' => date('Y-m-d'),
+                'tb_pembeli.pembayaran' => 2
+            ])
+            ->countAllResults();
+    }
+
+    public function count_order_all($id_mitra)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2,
+                'MONTH(tb_pembeli.created_at)' => date('m'),
+                'YEAR(tb_pembeli.created_at)' => date('Y'),
+            ])
+            ->countAllResults();
+    }
+
+    public function pemasukan_today($id_mitra)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_mitra', 'tb_mitra.id_mitra = tb_order.id_mitra')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'DATE(tb_pembeli.created_at)' => date('Y-m-d'),
+                'tb_pembeli.pembayaran' => 2
+            ])
+            ->get()->getResultArray();
+    }
+
+    public function pemasukan_all($id_mitra)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_mitra', 'tb_mitra.id_mitra = tb_order.id_mitra')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'MONTH(tb_pembeli.created_at)' => date('m'),
+                'YEAR(tb_pembeli.created_at)' => date('Y'),
+                'tb_pembeli.pembayaran' => 2
+            ])
+            ->get()->getResultArray();
+    }
 }

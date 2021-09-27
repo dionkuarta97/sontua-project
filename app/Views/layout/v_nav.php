@@ -5,7 +5,7 @@
         <div class="container">
             <a href="<?= base_url(); ?>/Admin" class="navbar-brand">
 
-                <span class="brand-text font-weight-light">S W A L O W</span>
+                <span class="brand-text font-weight-light">S O N T U A</span>
             </a>
             <?php if (session()->get('level') == 1) { ?>
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
