@@ -23,8 +23,8 @@ class Filteruser implements FilterInterface
     {
         // Do something here
         if (session()->get('log') == true && session()->get('level') == 2) {
-
-            return redirect()->to(base_url('User'));
+            $id_mitra =  session()->get('id_mitra');
+            return redirect()->to(base_url('User/dashboard/' . $id_mitra));
         }
     }
 }

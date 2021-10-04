@@ -101,4 +101,122 @@ class UserModel extends Model
             ])
             ->get()->getResultArray();
     }
+
+    public function get_detail_mitra($id_mitra)
+    {
+        return $this->db->table('tb_mitra')
+            ->where('id_mitra', $id_mitra)
+            ->get()->getRowArray();
+    }
+
+    public function pemasukan_all2($id_mitra)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_mitra', 'tb_mitra.id_mitra = tb_order.id_mitra')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2
+            ])
+            ->get()->getResultArray();
+    }
+
+    public function count_order_all2($id_mitra)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2,
+            ])
+            ->countAllResults();
+    }
+
+    public function pemasukan_all3($id_mitra, $cari)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_mitra', 'tb_mitra.id_mitra = tb_order.id_mitra')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2
+            ])
+            ->like('nama_product', $cari)
+            ->get()->getResultArray();
+    }
+
+    public function count_order_all3($id_mitra, $cari)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2,
+            ])
+            ->like('nama_product', $cari)
+            ->countAllResults();
+    }
+
+    public function pemasukan_all4($id_mitra, $tanggal_awal, $tanggal_akhir)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_mitra', 'tb_mitra.id_mitra = tb_order.id_mitra')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2,
+                'DATE(tb_order.created_at) >=' => $tanggal_awal,
+                'DATE(tb_order.created_at) <=' => $tanggal_akhir,
+            ])
+            ->get()->getResultArray();
+    }
+
+    public function count_order_all4($id_mitra, $tanggal_awal, $tanggal_akhir)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2,
+                'DATE(tb_order.created_at) >=' => $tanggal_awal,
+                'DATE(tb_order.created_at) <=' => $tanggal_akhir,
+            ])
+            ->countAllResults();
+    }
+
+    public function pemasukan_all5($id_mitra, $cari, $tanggal_awal, $tanggal_akhir)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_mitra', 'tb_mitra.id_mitra = tb_order.id_mitra')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2,
+                'DATE(tb_order.created_at) >=' => $tanggal_awal,
+                'DATE(tb_order.created_at) <=' => $tanggal_akhir,
+            ])
+            ->where("(nama_product LIKE '%" . $cari . "%')")
+            ->get()->getResultArray();
+    }
+
+    public function count_order_all5($id_mitra, $cari, $tanggal_awal, $tanggal_akhir)
+    {
+        return $this->db->table('tb_order')
+            ->join('tb_product', 'tb_product.id_product = tb_order.id_product')
+            ->join('tb_pembeli', 'tb_pembeli.id_pembeli = tb_order.id_pembeli')
+            ->where([
+                'tb_order.id_mitra' => $id_mitra,
+                'tb_pembeli.pembayaran' => 2,
+                'DATE(tb_order.created_at) >=' => $tanggal_awal,
+                'DATE(tb_order.created_at) <=' => $tanggal_akhir,
+            ])
+            ->where("(nama_product LIKE '%" . $cari . "%')")
+            ->countAllResults();
+    }
 }

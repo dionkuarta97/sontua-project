@@ -37,14 +37,7 @@
 
 
                                 </div>
-                                <br>
-                                <?php if (!empty(session()->getFlashdata('sukses'))) { ?>
-                                    <div align="center" class="alert alert-success">
-                                        <?= session()->getFlashdata('sukses'); ?>
-                                    </div>
-                                <?php } ?>
-                                <br>
-
+                                <div class="flash-data" data-flashdata="<?= session()->getFlashdata('sukses'); ?>"></div>
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -66,7 +59,7 @@
                                                 <td align="center">
                                                     <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_product']; ?>" class="btn btn-warning btn-sm">Edit</button>
 
-                                                    <a onclick="return confirm('Yakin....?')" href="<?= base_url(); ?>/User/hapus_product/<?= $value['id_kategori']; ?>/<?= $value['id_product']; ?>" class="btn btn-danger btn-sm"> Hapus</a>
+                                                    <a href="<?= base_url(); ?>/User/hapus_product/<?= $value['id_kategori']; ?>/<?= $value['id_product']; ?>" class="btn btn-danger btn-sm konfirm"> Hapus</a>
 
                                                 </td>
                                         </tr>

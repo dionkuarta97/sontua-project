@@ -231,7 +231,7 @@ class Kasir extends BaseController
                         'id_kategori' => $id,
                         'DATE(created_at)' => $today
                     ])
-                        ->orderby('id_pembeli', 'ASC')
+                        ->orderby('id_pembeli', 'DESC')
                         ->paginate(10, 'peoples'),
                     'pager' => $pembeli->pager,
                     'nomor' => nomor($this->request->getVar('page_peoples'), 10),
@@ -255,7 +255,7 @@ class Kasir extends BaseController
                     ])
                         ->like('pembayaran', $cari)
                         ->orlike('nama_pembeli', $cari)
-                        ->orderby('id_pembeli', 'ASC')
+                        ->orderby('id_pembeli', 'DESC')
                         ->paginate(10, 'peoples'),
                     'pager' => $pembeli->pager,
                     'nomor' => nomor($this->request->getVar('page_peoples'), 10),
@@ -281,14 +281,13 @@ class Kasir extends BaseController
                         'DATE(created_at) >=' => $tanggal_awal,
                         'DATE(created_at) <=' => $tanggal_akhir,
                     ])
-                        ->orderby('id_pembeli', 'ASC')
+                        ->orderby('id_pembeli', 'DESC')
                         ->paginate(10, 'peoples'),
                     'pager' => $pembeli->pager,
                     'nomor' => nomor($this->request->getVar('page_peoples'), 10),
                     'total_pembeli' => $this->KasirModel->total_pembeli2($id, $tanggal_awal, $tanggal_akhir),
                     'id' => $id,
                     'cari' => $cari,
-
                     'tanggal_awal' => $tanggal_awal,
                     'tanggal_akhir' => $tanggal_akhir
                 ];
@@ -304,17 +303,16 @@ class Kasir extends BaseController
                         'id_kategori' => $id,
                         'DATE(created_at) >=' => $tanggal_awal,
                         'DATE(created_at) <=' => $tanggal_akhir,
+
                     ])
-                        ->like('pembayaran', $cari)
-                        ->orlike('nama_pembeli', $cari)
-                        ->orderby('id_pembeli', 'ASC')
+                        ->where("(pembayaran LIKE '%" . $cari . "%' OR nama_pembeli LIKE '%" . $cari . "%')")
+                        ->orderby('id_pembeli', 'DESC')
                         ->paginate(10, 'peoples'),
                     'pager' => $pembeli->pager,
                     'nomor' => nomor($this->request->getVar('page_peoples'), 10),
-                    'total_pembeli' => $this->KasirModel->total_cari2($id, $tanggal_awal, $tanggal_akhir, $cari),
+                    'total_pembeli' => $this->KasirModel->total_cari3($id, $tanggal_awal, $tanggal_akhir, $cari),
                     'id' => $id,
                     'cari' => $cari,
-
                     'tanggal_awal' => $tanggal_awal,
                     'tanggal_akhir' => $tanggal_akhir
                 ];

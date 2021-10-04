@@ -12,5 +12,5 @@ class PembeliModel extends Model
     // primary key
     protected $primaryKey = 'id_pembeli';
     // table fields
-    protected $allowedFields = ['nama_pembeli', 'id_kategori', 'pembayaran'];
+    protected $allowedFields = ['nama_pembeli', 'id_kategori AS id_kat', 'pembayaran'];
 }

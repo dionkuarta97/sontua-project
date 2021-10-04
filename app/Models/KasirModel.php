@@ -105,6 +105,18 @@ class KasirModel extends Model
             ->countAllResults();
     }
 
+    public function total_cari3($id, $tanggal_awal, $tanggal_akhir, $cari)
+    {
+        return $this->db->table('tb_pembeli')
+            ->where([
+                'id_kategori' => $id,
+                'DATE(created_at) >=' => $tanggal_awal,
+                'DATE(created_at) <=' => $tanggal_akhir,
+            ])
+            ->where("(pembayaran LIKE '%" . $cari . "%' OR nama_pembeli LIKE '%" . $cari . "%')")
+            ->countAllResults();
+    }
+
 
     public function get_orderan($id)
     {

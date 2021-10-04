@@ -58,7 +58,8 @@ class Filters extends BaseConfig
                     'admin', 'admin/*',
                     'mitra', 'mitra/*',
                     'kategori', 'kategori/*',
-                    'ProductBumnag', 'ProductBumnag/*'
+                    'ProductBumnag', 'ProductBumnag/*',
+                    'User/*',
                 ],
 
             ],

@@ -72,10 +72,7 @@ class Auth extends BaseController
 
                     session()->set('log', true);
                     session()->set('username', $cek_admin['username']);
-
                     session()->set('level', $hak_akses);
-
-                    return redirect()->to(base_url('Admin'));
                 } else {
                     session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');
                     return redirect()->to(base_url('auth/index'));
@@ -90,8 +87,6 @@ class Auth extends BaseController
                     session()->set('nama', $cek_mitra['nama']);
                     session()->set('id_mitra', $cek_mitra['id_mitra']);
                     session()->set('level', $hak_akses);
-
-                    return redirect()->to(base_url('user'));
                 } else {
                     session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');
                     return redirect()->to(base_url('auth/index'));
@@ -106,8 +101,6 @@ class Auth extends BaseController
                     session()->set('nama', $cek_kasir['nama']);
                     session()->set('id_kasir', $cek_kasir['id_kasir']);
                     session()->set('level', $hak_akses);
-
-                    return redirect()->to(base_url('Kasir'));
                 } else {
                     session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');
                     return redirect()->to(base_url('auth/index'));

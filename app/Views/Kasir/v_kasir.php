@@ -34,16 +34,15 @@
             <div style="margin-top: 30px;" class="row">
 
 
-
                 <?php $i = 0;
                 foreach ($get_kategori as $key => $value) { ?>
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text"><?= $value['kategori']; ?> (Belum)</span>
-                                <span class="info-box-number"><?= $total_belum[$i++]; ?></span>
+                                <span class="info-box-text"><?= $value['kategori']; ?> (Lunas)</span>
+                                <span class="info-box-number"><?= $total_lunas[$i++]; ?></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -55,11 +54,11 @@
                 foreach ($get_kategori as $key => $value) { ?>
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text"><?= $value['kategori']; ?> (Lunas)</span>
-                                <span class="info-box-number"><?= $total_lunas[$i++]; ?></span>
+                                <span class="info-box-text"><?= $value['kategori']; ?> (Belum)</span>
+                                <span class="info-box-number"><?= $total_belum[$i++]; ?></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

@@ -19,6 +19,7 @@ class MitraModel extends Model
             ->get()->getResultArray();
     }
 
+
     public function tambah_mitra($data)
     {
         return $this->db->table('tb_mitra')->insert($data);
