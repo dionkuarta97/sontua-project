@@ -12,5 +12,5 @@ class ProductModel extends Model
     // primary key
     protected $primaryKey = 'id_product';
     // table fields
-    protected $allowedFields = ['nama_product', 'id_mitra', 'id_kategori', 'harga_product', 'jenis_product', 'img_product'];
+    protected $allowedFields = ['nama_product', 'id_mitra', 'id_kategori', 'harga_product', 'jenis_product', 'img_product', 'arsip'];
 }

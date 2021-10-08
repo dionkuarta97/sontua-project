@@ -87,7 +87,13 @@ class ProductBumnag extends BaseController
 
     public function hapus_product($id_kategori, $id_product)
     {
-        $this->ProductBumnagModel->hapus_product($id_product);
+        $data = [
+            'arsip' => 2
+
+        ];
+
+
+        $this->ProductBumnagModel->edit_product($data, $id_product);
         session()->setFlashdata('sukses', 'Data Berhasil Dihapus');
         return redirect()->to(base_url('ProductBumnag/detail/' . $id_kategori));
     }

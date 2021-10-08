@@ -10,12 +10,13 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
 
-                            <h1 class="m-0"> <?= $tittle; ?><small> SWALOW</small></h1>
+                            <h1 class="m-0"> <?= $tittle; ?> <small>sontua</small></h1>
 
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item active">List Pembeli</li>
+                                <li class="breadcrumb-item"><a href="<?= base_url('User/dashboard'); ?>">Dashboard</a></li>
+                                <li class="breadcrumb-item active">List Order</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -37,7 +38,7 @@
 
                             </ul>
                         </div>
-                        <div class="col-md-6">
+                        <div style="margin-top: 10px;" class="col-md-6">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form action="<?= base_url('User/list_order/' . $id_mitra); ?>" method="get">
@@ -68,23 +69,21 @@
                         <form action="<?= base_url('User/list_order/' . $id_mitra); ?>" method="get">
                             <div style="margin-top: 20px;" class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="row">
-                                            <div style="margin-right: 25px;" class="col-md-4 form-group">
+                                            <div class=" col-md-5 form-group">
                                                 <label for="">Tanggal awal</label>
                                                 <input type="date" name="tanggal_awal" id="" value="<?= $tanggal_awal; ?>" class="form-control" required>
                                             </div>
-                                            <div style="margin-top: 37px;" class="col-1">
-                                                <b>-</b>
-                                            </div>
-                                            <div style="margin-right: 10px;" class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label for="">Tanggal Akhir</label>
                                                 <input type="date" name="tanggal_akhir" id="" value="<?= $tanggal_akhir; ?>" class="form-control" required>
                                             </div>
-                                            <div style="margin-top: 30px;" class="col-md-1">
-                                                <button type="submit" class="btn btn-primary">Cari</button>
-                                            </div>
+
                                         </div>
+                                    </div>
+                                    <div style="margin-top: 10px;" class="col-md-1">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
                                     </div>
                                 </div>
                             </div>
@@ -93,60 +92,60 @@
                         <form action="" method="get">
                             <div style="margin-top: 20px;" class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="row">
-                                            <div style="margin-right: 25px;" class="col-md-4 form-group">
+                                            <div class="col-md-5 form-group">
                                                 <label for="">Tanggal awal</label>
-                                                <input type="date" name="tanggal_awal" id="" class="form-control" required>
+                                                <input type="date" name="tanggal_awal" id="" value="<?= $tanggal_awal; ?>" class=" form-control" required>
                                             </div>
-                                            <div style="margin-top: 37px;" class="col-1">
-                                                <b>-</b>
-                                            </div>
-                                            <div style="margin-right: 10px;" class="col-md-4">
+
+                                            <div class="col-md-5">
                                                 <label for="">Tanggal Akhir</label>
-                                                <input type="date" name="tanggal_akhir" id="" class="form-control" required>
+                                                <input type="date" name="tanggal_akhir" id="" value="<?= $tanggal_akhir; ?>" class="form-control" required>
                                             </div>
                                             <input type="hidden" name="cari" value="<?= $cari; ?>">
-                                            <div style="margin-top: 30px;" class="col-md-1">
-                                                <button type="submit" class="btn btn-primary">Cari</button>
-                                            </div>
+
                                         </div>
+                                    </div>
+                                    <div style="margin-top: 10px;" class="col-md-1">
+                                        <button type="submit" class="btn btn-primary">Cari</button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     <?php }; ?>
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Jumlah</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Harga x Jumlah</th>
-                                <th scope="col">Tanggal Order</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <?php foreach ($list_order as $key => $value) { ?>
-                                    <td><?= $nomor++; ?></td>
-                                    <td><?= $value['nama_product']; ?></td>
-                                    <td><?= $value['jumlah']; ?></td>
-                                    <td>Rp. <?= format_rupiah($value['harga_product'] * ((100 - $detail_mitra['bagi_hasil']) / 100)); ?></td>
-                                    <td>Rp. <?= format_rupiah($value['jumlah'] * ($value['harga_product'] * ((100 - $detail_mitra['bagi_hasil']) / 100))); ?></td>
-                                    <td><?= format_indo($value['created_at']); ?></td>
-                            </tr>
-                        <?php }; ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th style="text-align:center;" colspan="4">Total</th>
-                                <td>Rp. <?= format_rupiah($total_all) ?></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Harga</th>
+                                    <th scope="col">Harga x Jumlah</th>
+                                    <th scope="col">Tanggal Order</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <?php foreach ($list_order as $key => $value) { ?>
+                                        <td><?= $nomor++; ?></td>
+                                        <td><?= $value['nama_product']; ?></td>
+                                        <td><?= $value['jumlah']; ?></td>
+                                        <td>Rp. <?= format_rupiah($value['harga_product'] * ((100 - $detail_mitra['bagi_hasil']) / 100)); ?></td>
+                                        <td>Rp. <?= format_rupiah($value['jumlah'] * ($value['harga_product'] * ((100 - $detail_mitra['bagi_hasil']) / 100))); ?></td>
+                                        <td><?= format_indo($value['created_at']); ?></td>
+                                </tr>
+                            <?php }; ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4">Total</th>
+                                    <td>Rp. <?= format_rupiah($total_all) ?></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
                 <div class="card-footer bg-light">
                     <div style="float: left;">

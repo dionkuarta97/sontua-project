@@ -1,10 +1,18 @@
 const flashdata = $(".flash-data").data("flashdata");
+const flashdata2 = $(".flash-data2").data("flashdata2");
 let aa;
 
 if (flashdata) {
   Swal.fire({
     text: flashdata,
     icon: "success",
+  });
+}
+
+if (flashdata2) {
+  Swal.fire({
+    title: flashdata2,
+    icon: "error",
   });
 }
 

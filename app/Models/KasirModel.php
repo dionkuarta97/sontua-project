@@ -9,6 +9,7 @@ class KasirModel extends Model
     public function get_kategori()
     {
         return $this->db->table('tb_kategori')
+            ->where('hapus', 1)
             ->get()->getResultArray();
     }
 
@@ -50,6 +51,7 @@ class KasirModel extends Model
     {
         return $this->db->table('tb_kategori')
             ->where('id_kategori', $id)
+
             ->get()->getResultArray();
     }
 
@@ -80,42 +82,33 @@ class KasirModel extends Model
             ])->countAllResults();
     }
 
-    public function total_cari($id, $date, $cari)
+    public function total_cari($id, $date, $cari, $cari2)
     {
         return $this->db->table('tb_pembeli')
             ->where([
                 'id_kategori' => $id,
-                'DATE(created_at)' => $date
+                'DATE(created_at)' => $date,
+                'pembayaran' => $cari2 ? $cari2 : 1,
+                'pembayaran' => $cari2 ? $cari2 : 2,
             ])
-            ->like('pembayaran', $cari)
-            ->orlike('nama_pembeli', $cari)
+            ->where("(nama_pembeli LIKE '%" . $cari . "%')")
             ->countAllResults();
     }
 
-    public function total_cari2($id, $tanggal_awal, $tanggal_akhir, $cari)
+    public function total_cari2($id, $tanggal_awal, $tanggal_akhir, $cari, $cari2)
     {
         return $this->db->table('tb_pembeli')
             ->where([
                 'id_kategori' => $id,
                 'DATE(created_at) >=' => $tanggal_awal,
                 'DATE(created_at) <=' => $tanggal_akhir,
+                'pembayaran' => $cari2 ? $cari2 : 1,
+                'pembayaran' => $cari2 ? $cari2 : 2,
             ])
-            ->like('pembayaran', $cari)
-            ->orlike('nama_pembeli', $cari)
+            ->where("(nama_pembeli LIKE '%" . $cari . "%')")
             ->countAllResults();
     }
 
-    public function total_cari3($id, $tanggal_awal, $tanggal_akhir, $cari)
-    {
-        return $this->db->table('tb_pembeli')
-            ->where([
-                'id_kategori' => $id,
-                'DATE(created_at) >=' => $tanggal_awal,
-                'DATE(created_at) <=' => $tanggal_akhir,
-            ])
-            ->where("(pembayaran LIKE '%" . $cari . "%' OR nama_pembeli LIKE '%" . $cari . "%')")
-            ->countAllResults();
-    }
 
 
     public function get_orderan($id)
@@ -153,6 +146,10 @@ class KasirModel extends Model
         return $this->db->table('tb_pembeli')->update($data, ['id_pembeli' => $id]);
     }
 
+    public function sudah_order($data, $id)
+    {
+        return $this->db->table('tb_pembeli')->update($data, ['id_pembeli' => $id]);
+    }
 
     public function hapus_pembeli($id)
     {
@@ -211,5 +208,14 @@ class KasirModel extends Model
                 'tb_pembeli.pembayaran' => 1,
                 'DATE(tb_pembeli.created_at)' =>  date('Y-m-d'),
             ])->get()->getResultArray();
+    }
+
+    public function cek_hapus($id)
+    {
+        return $this->db->table('tb_order')
+            ->where([
+                'id_pembeli' => $id
+            ])
+            ->get()->getResultArray();
     }
 }

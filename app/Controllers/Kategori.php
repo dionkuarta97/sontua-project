@@ -56,7 +56,13 @@ class Kategori extends BaseController
 
     public function hapus_kategori($id)
     {
-        $this->KategoriModel->hapus_kategori($id);
+        $data = [
+            'hapus' => 2,
+
+        ];
+
+
+        $this->KategoriModel->edit_kategori($data, $id);
         session()->setFlashdata('sukses', 'Data Berhasil Dihapus');
         return redirect()->to(base_url('Kategori'));
     }

@@ -11,7 +11,15 @@ class UserModel extends Model
         return $this->db->table('tb_kategori')
             ->join('tb_mitra', 'tb_mitra.id_kategori = tb_kategori.id_kategori')
             ->where('tb_mitra.id_mitra', $id_mitra)
+            ->where('hapus', 1)
             ->get()->getResultArray();
+    }
+
+    public function cek_product($id)
+    {
+        return $this->db->table('tb_product')
+            ->where('id_product', $id)
+            ->get()->getRowArray();
     }
 
     public function get_product($id, $id_mitra)
@@ -19,6 +27,7 @@ class UserModel extends Model
         return $this->db->table('tb_product')
             ->where('id_kategori', $id)
             ->where('id_mitra', $id_mitra)
+            ->where('arsip', 1)
             ->get()
             ->getResultArray();
     }

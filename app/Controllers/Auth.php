@@ -86,6 +86,7 @@ class Auth extends BaseController
                     session()->set('username', $cek_mitra['username']);
                     session()->set('nama', $cek_mitra['nama']);
                     session()->set('id_mitra', $cek_mitra['id_mitra']);
+                    session()->set('id_kategori', $cek_mitra['id_kategori']);
                     session()->set('level', $hak_akses);
                 } else {
                     session()->setFlashdata('pesan', 'Login Gagal!, Username Atau Password Salah !!');

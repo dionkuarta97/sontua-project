@@ -16,6 +16,7 @@ class KategoriModel extends Model
     public function get_kategori()
     {
         return $this->db->table('tb_kategori')
+            ->where('hapus', 1)
             ->get()->getResultArray();
     }
     public function edit_kategori($data, $id)

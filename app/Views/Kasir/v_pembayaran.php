@@ -11,7 +11,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <?php foreach ($get_nama as $key => $value) {; ?>
-                                <h1 class="m-0"> <?= $tittle; ?> (<?= $value['kategori']; ?>) <small>SWALOW</small></h1>
+                                <h1 class="m-0"> <?= $tittle; ?> (<?= $value['kategori']; ?>) <small>sontua</small></h1>
                             <?php }; ?>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
@@ -25,7 +25,7 @@
             </div>
 
             <div align="center">
-                <div class="card col-8">
+                <div class="card col-md-8">
                     <div class="card-header">
                         <div align="left">
                             <?php if ($orderan != null) { ?>
@@ -75,10 +75,10 @@
                                             <div class="row">
                                                 <div style="margin-top: 30px;" class="col-md-8">
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <a href="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>" class="btn btn-warning">Tambah Pesanan</a>
+                                                        <div class="col-md-6">
+                                                            <a href="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>" class="btn btn-warning">Tambah</a>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <form action="<?= base_url('Kasir/bayar/' . $id . '/' . $id_pembeli); ?>" method="post">
                                                                 <input type="hidden" name="pembayaran" value="2">
                                                                 <button type="submit" class="btn btn-danger konfirmF" name="pak" value="2">Bayar</button>

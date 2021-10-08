@@ -16,9 +16,9 @@ class User extends BaseController
         $this->UserModel = new UserModel();
     }
 
-    public function dashboard($id_mitra)
+    public function dashboard()
     {
-
+        $id_mitra =  session()->get('id_mitra');
         $today = $this->UserModel->pemasukan_today($id_mitra);
         $total_today = 0;
         $all = $this->UserModel->pemasukan_all($id_mitra);
@@ -54,11 +54,13 @@ class User extends BaseController
         echo view('layout/v_wrapper', $data);
     }
 
-    public function detail($id)
+    public function detail()
     {
+
 
         $id_mitra = session()->get('id_mitra');
         $nama_mitra = session()->get('nama');
+        $id = session()->get('id_kategori');
         $data = [
             'tittle' => 'Product',
             'get_kategori' => $this->UserModel->get_kategori($id_mitra),
@@ -72,9 +74,9 @@ class User extends BaseController
         echo view('layout/v_wrapper', $data);
     }
 
-    public function proses($id)
+    public function proses()
     {
-
+        $id = session()->get('id_kategori');
         $id_mitra = session()->get('id_mitra');
 
         if ($this->request->getMethod() !== 'post') {
@@ -86,7 +88,7 @@ class User extends BaseController
 
         if ($validation == FALSE) {
 
-            return $this->dashboard($id_mitra);
+            return $this->dashboard();
         } else {
             $upload = $this->request->getFile('file_upload');
             $upload->move(WRITEPATH . '../public/img/');
@@ -100,37 +102,59 @@ class User extends BaseController
             );
             $this->UserModel->simpan_product($data);
             session()->setFlashdata('sukses', 'Data Berhasil di Simpan');
-            return redirect()->to(base_url('User/detail/' . $id));
+            return redirect()->to(base_url('User/detail/'));
         }
     }
 
-    public function edit_product($id, $id_product)
+    public function edit_product($id_product)
     {
 
+        $id_mitra = session()->get('id_mitra');
+        $cek_product = $this->UserModel->cek_product($id_product);
 
-        $data = [
-            'nama_product'  => $this->request->getPost('nama_product'),
-            'harga_product'  => $this->request->getPost('harga_product'),
-            'jenis_product'  => $this->request->getPost('jenis_product'),
+        if ($cek_product['id_mitra'] != $id_mitra) {
+            session()->setFlashdata('gagal', 'Tidak Bisa Diakses');
+            return redirect()->to(base_url('User/detail/'));
+        } else {
 
-        ];
+            $data = [
+                'nama_product'  => $this->request->getPost('nama_product'),
+                'harga_product'  => $this->request->getPost('harga_product'),
+                'jenis_product'  => $this->request->getPost('jenis_product'),
+
+            ];
 
 
-        $this->UserModel->edit_product($data, $id_product);
-        session()->setFlashdata('sukses', 'Data Berhasil Diubah');
-        return redirect()->to(base_url('User/detail/' . $id));
+            $this->UserModel->edit_product($data, $id_product);
+            session()->setFlashdata('sukses', 'Data Berhasil Diubah');
+            return redirect()->to(base_url('User/detail/'));
+        }
     }
 
-    public function hapus_product($id_kategori, $id_product)
+    public function hapus_product($id_product)
     {
-        $this->UserModel->hapus_product($id_product);
-        session()->setFlashdata('sukses', 'Data Berhasil Dihapus');
-        return redirect()->to(base_url('User/detail/' . $id_kategori));
+
+        $id_mitra = session()->get('id_mitra');
+        $cek_product = $this->UserModel->cek_product($id_product);
+
+        if ($cek_product['id_mitra'] != $id_mitra) {
+            session()->setFlashdata('gagal', 'Tidak Bisa Diakses');
+            return redirect()->to(base_url('User/detail/'));
+        } else {
+            $data = [
+                'arsip'  => 2,
+            ];
+
+
+            $this->UserModel->edit_product($data, $id_product);
+            session()->setFlashdata('sukses', 'Data Berhasil Dihapus');
+            return redirect()->to(base_url('User/detail/'));
+        }
     }
 
-    public function list_order($id_mitra)
+    public function list_order()
     {
-
+        $id_mitra = session()->get('id_mitra');
         $order = new OrderModel;
         $tanggal_awal = $this->request->getGet('tanggal_awal');
         $tanggal_akhir = $this->request->getGet('tanggal_akhir');

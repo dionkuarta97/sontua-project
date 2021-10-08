@@ -11,7 +11,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <?php foreach ($get_nama as $key => $value) {; ?>
-                                <h1 class="m-0"> <?= $tittle; ?> <?= $value['kategori']; ?> <small>SWALOW</small></h1>
+                                <h1 class="m-0"> <?= $tittle; ?> <?= $value['kategori']; ?> <small>sontua</small></h1>
                             <?php }; ?>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
@@ -34,7 +34,7 @@
                             <?php if ($id == 1) { ?>
                                 <ul class="nav nav-pills">
 
-                                    <li class="nav-item"><a class="nav-link <?= $cari != 1 && $cari != 2 ? 'active' : ''; ?>" href="<?= base_url('Kasir/list/' . $id); ?>">Semua</a></li>
+                                    <li class="nav-item"><a class="nav-link <?= $cari != 1 && $cari != 2 ? 'active' : ''; ?>" href="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>">Semua</a></li>
 
                                     <li class="nav-item">
                                         <form action="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>" method="get">
@@ -50,7 +50,7 @@
                                 </ul>
                             <?php } ?>
                         </div>
-                        <div class="col-md-6">
+                        <div style="margin-top: 10px;" class="col-md-6">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form action="<?= base_url('Kasir/list/' . $id . '/' . $id_pembeli); ?>" method="get">
@@ -90,10 +90,10 @@
                                         </div>
                                         <div class="card-footer bg-secondary">
                                             <div class="row">
-                                                <div class="col-6 text-left">
+                                                <div class="col-md-6">
                                                     <h5 class="text-light">Rp. <?= format_rupiah($value['harga_product']); ?></h5>
                                                 </div>
-                                                <div class="col-6 text-right">
+                                                <div class="col-md-6">
                                                     <div class="col-md-12">
                                                         <form action="<?= base_url('/Kasir/pesan/' . $value['id_product']); ?>" method="post">
                                                             <div class="row">
@@ -149,10 +149,10 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <img src="<?= base_url() ?>/img/<?= $value['photo']; ?>" width="100%" height="100%" alt="" style="border-radius: 5px;">
+                                        <img src="<?= base_url() ?>/img/<?= $value['photo']; ?>" width="100%" height="150" alt="" style="border-radius: 10px; border-color: black; border-style: inset;">
                                     </div>
                                     <div class="col-md-8">
-                                        <span class="text-muted"><?= $value['name']; ?></span>
+                                        <span class="text-muted"><b><?= $value['name']; ?></b></span>
                                         <hr>
                                         <form action="<?= base_url('Kasir/update/' . $id . '/' . $id_pembeli); ?>" method="post">
                                             <div class="col-md-12">
@@ -164,10 +164,10 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <button type="submit" class="btn btn-warning konfirmF">
-                                                            Edit
+                                                            <i class="fas fa-edit"></i>
                                                         </button>
                                                         <a href="<?= base_url('Kasir/remove/' . $value['id'] . '/' . $id_pembeli); ?>" class="btn btn-danger konfirm">
-                                                            Hapus
+                                                            <i class="fas fa-trash"></i>
                                                         </a>
                                                     </div>
 

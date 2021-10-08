@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> <?= $tittle; ?> <small>SWALOW</small></h1>
+                    <h1 class="m-0"> <?= $tittle; ?> <small>sontua</small></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -27,7 +27,7 @@
                             <!-- /.card-header -->
 
                             <div class="card-body">
-                                <div class="col-md-12">
+                                <div style="margin-bottom: 10px;" class="col-md-12">
                                     <button type="button" data-toggle="modal" data-target="#modalTambah" class="btn btn-outline-primary">Tambah Kategori <i class="fas fa-plus"></i></button>
 
 
@@ -54,9 +54,8 @@
                                                 <td style="text-align: center;"><?= $no++; ?></td>
                                                 <td><?= $value['kategori']; ?></td>
                                                 <td style="text-align: right;">
-                                                    <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_kategori']; ?>" class="btn btn-warning btn-sm">Edit Kategori </button>
-
-                                                    <a href="<?= base_url(); ?>/Kategori/hapus_kategori/<?= $value['id_kategori']; ?>" class="btn btn-danger btn-sm konfirm"> Hapus Kategori</a>
+                                                    <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_kategori']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+                                                    <a href="<?= base_url(); ?>/Kategori/hapus_kategori/<?= $value['id_kategori']; ?>" class="btn btn-danger btn-sm konfirm"><i class="fas fa-trash"></i></a>
 
                                                 </td>
                                         </tr>

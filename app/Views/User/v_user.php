@@ -18,7 +18,7 @@
                         </div>
 
 
-                        <a href="<?= base_url('User/list_order/' . $id_mitra); ?>" class="btn btn-info btn-block">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?= base_url('User/list_order'); ?>" class="btn btn-info btn-block">More info <i class="fas fa-arrow-circle-right"></i></a>
 
 
                     </div>
@@ -36,7 +36,7 @@
                             <i class="fas fa-shopping-bag"></i>
                         </div>
 
-                        <a href="<?= base_url('User/list_order/' . $id_mitra); ?>" class="btn btn-success btn-block">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="<?= base_url('User/list_order'); ?>" class="btn btn-success btn-block">More info <i class="fas fa-arrow-circle-right"></i></a>
 
                     </div>
                 </div>

@@ -88,7 +88,8 @@ class Kasir extends BaseController
                 'isi' => 'Kasir/v_list',
                 'currentPage' => $this->request->getVar('page_peoples') ? $this->request->getVar('page_peoples') : 1,
                 'product' => $product->where([
-                    'id_kategori' => $id
+                    'id_kategori' => $id,
+                    'arsip' => 1,
                 ])
                     ->orderby('id_product', 'ASC')
                     ->paginate(9, 'peoples'),
@@ -112,10 +113,10 @@ class Kasir extends BaseController
                 'isi' => 'Kasir/v_list',
                 'currentPage' => $this->request->getVar('page_peoples') ? $this->request->getVar('page_peoples') : 1,
                 'product' => $product->where([
-                    'id_kategori' => $id
+                    'id_kategori' => $id,
+                    'arsip' => 1,
                 ])
-                    ->like('jenis_product', $cari)
-                    ->orlike('nama_product', $cari)
+                    ->where("(nama_product LIKE '%" . $cari . "%' OR jenis_product LIKE '%" . $cari . "%')")
                     ->orderby('id_product', 'ASC')
                     ->paginate(9, 'peoples'),
                 'pager' => $product->pager,
@@ -216,10 +217,11 @@ class Kasir extends BaseController
         $tanggal_akhir = $this->request->getGet('tanggal_akhir');
         $today = date('Y-m-d');
         $cari = $this->request->getGet('cari');
+        $cari2 = $this->request->getGet('cari2');
 
 
         if ($tanggal_awal == null && $tanggal_akhir == null) {
-            if ($cari == null) {
+            if ($cari == null && $cari2 == null) {
                 $data = [
                     'tittle' => 'List Pembeli',
                     'get_kategori' => $this->KasirModel->get_kategori(),
@@ -239,7 +241,8 @@ class Kasir extends BaseController
                     'id' => $id,
                     'cari' => $cari,
                     'tanggal_awal' => $tanggal_awal,
-                    'tanggal_akhir' => $tanggal_akhir
+                    'tanggal_akhir' => $tanggal_akhir,
+                    'cari2' => $cari2,
                 ];
             } else {
                 $data = [
@@ -251,24 +254,25 @@ class Kasir extends BaseController
                     'currentPage' => $this->request->getVar('page_peoples') ? $this->request->getVar('page_peoples') : 1,
                     'list_pembeli' => $pembeli->where([
                         'id_kategori' => $id,
-                        'DATE(created_at)' => $today
+                        'DATE(created_at)' => $today,
+                        'pembayaran' => $cari2 ? $cari2 : 1,
+                        'pembayaran' => $cari2 ? $cari2 : 2,
                     ])
-                        ->like('pembayaran', $cari)
-                        ->orlike('nama_pembeli', $cari)
+                        ->where("(nama_pembeli LIKE '%" . $cari . "%')")
                         ->orderby('id_pembeli', 'DESC')
                         ->paginate(10, 'peoples'),
                     'pager' => $pembeli->pager,
                     'nomor' => nomor($this->request->getVar('page_peoples'), 10),
-                    'total_pembeli' => $this->KasirModel->total_cari($id, $today, $cari),
+                    'total_pembeli' => $this->KasirModel->total_cari($id, $today, $cari, $cari2),
                     'id' => $id,
                     'cari' => $cari,
-
+                    'cari2' => $cari2,
                     'tanggal_awal' => $tanggal_awal,
                     'tanggal_akhir' => $tanggal_akhir
                 ];
             }
         } else {
-            if ($cari == null) {
+            if ($cari == null && $cari2 == null) {
                 $data = [
                     'tittle' => 'List Pembeli',
                     'get_kategori' => $this->KasirModel->get_kategori(),
@@ -289,7 +293,8 @@ class Kasir extends BaseController
                     'id' => $id,
                     'cari' => $cari,
                     'tanggal_awal' => $tanggal_awal,
-                    'tanggal_akhir' => $tanggal_akhir
+                    'tanggal_akhir' => $tanggal_akhir,
+                    'cari2' => $cari2,
                 ];
             } else {
                 $data = [
@@ -303,18 +308,21 @@ class Kasir extends BaseController
                         'id_kategori' => $id,
                         'DATE(created_at) >=' => $tanggal_awal,
                         'DATE(created_at) <=' => $tanggal_akhir,
+                        'pembayaran' => $cari2 ? $cari2 : 1,
+                        'pembayaran' => $cari2 ? $cari2 : 2,
 
                     ])
-                        ->where("(pembayaran LIKE '%" . $cari . "%' OR nama_pembeli LIKE '%" . $cari . "%')")
+                        ->where("(nama_pembeli LIKE '%" . $cari . "%')")
                         ->orderby('id_pembeli', 'DESC')
                         ->paginate(10, 'peoples'),
                     'pager' => $pembeli->pager,
                     'nomor' => nomor($this->request->getVar('page_peoples'), 10),
-                    'total_pembeli' => $this->KasirModel->total_cari3($id, $tanggal_awal, $tanggal_akhir, $cari),
+                    'total_pembeli' => $this->KasirModel->total_cari2($id, $tanggal_awal, $tanggal_akhir, $cari, $cari2),
                     'id' => $id,
                     'cari' => $cari,
                     'tanggal_awal' => $tanggal_awal,
-                    'tanggal_akhir' => $tanggal_akhir
+                    'tanggal_akhir' => $tanggal_akhir,
+                    'cari2' => $cari2,
                 ];
             }
         }
@@ -410,9 +418,18 @@ class Kasir extends BaseController
 
     public function hapus_pembeli($id, $id_pembeli)
     {
-        $this->KasirModel->hapus_pembeli($id_pembeli);
-        $this->KasirModel->hapus_order($id_pembeli);
-        session()->setFlashdata('sukses', 'Data Berhasil Dihapus');
-        return redirect()->to(base_url('Kasir/pembeli/' . $id));
+
+        $cek_order = $this->KasirModel->cek_hapus($id_pembeli);
+
+        if ($cek_order) {
+            session()->setFlashdata('gagal', 'Pembeli Sudah Memesan data tidak bisa di hapus');
+            return redirect()->to(base_url('Kasir/pembeli/' . $id));
+        } else {
+
+            $this->KasirModel->hapus_pembeli($id_pembeli);
+            $this->KasirModel->hapus_order($id_pembeli);
+            session()->setFlashdata('sukses', 'Data Berhasil Dihapus');
+            return redirect()->to(base_url('Kasir/pembeli/' . $id));
+        };
     }
 }

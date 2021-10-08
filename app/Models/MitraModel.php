@@ -9,6 +9,7 @@ class MitraModel extends Model
     public function get_kategori()
     {
         return $this->db->table('tb_kategori')
+            ->where('hapus', 1)
             ->get()->getResultArray();
     }
 
@@ -16,6 +17,7 @@ class MitraModel extends Model
     {
         return $this->db->table('tb_mitra')
             ->join('tb_kategori', 'tb_kategori.id_kategori = tb_mitra.id_kategori')
+            ->where('del', 1)
             ->get()->getResultArray();
     }
 

@@ -6,7 +6,7 @@
 
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"> <?= $tittle; ?> <?= $nama_mitra; ?> <small>SWALOW</small></h1>
+                    <h1 class="m-0"> <?= $tittle; ?> <?= $nama_mitra; ?> <small>sontua</small></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -31,13 +31,14 @@
                             <!-- /.card-header -->
 
                             <div class="card-body">
-                                <div class="col-md-12">
+                                <div style="margin-bottom: 10px;" class="col-md-12">
 
                                     <button type="button" data-toggle="modal" data-target="#modalTambah" class="btn btn-outline-primary">Tambah Product <i class="fas fa-plus"></i></button>
 
 
                                 </div>
                                 <div class="flash-data" data-flashdata="<?= session()->getFlashdata('sukses'); ?>"></div>
+                                <div class="flash-data2" data-flashdata2="<?= session()->getFlashdata('gagal'); ?>"></div>
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -53,13 +54,13 @@
                                             <?php $no = 1;
                                             foreach ($get_product as $key => $value) { ?>
                                                 <td><?= $no++; ?></td>
-                                                <td align="center"><img src="<?= base_url() ?>/img/<?= $value['img_product']; ?>" width="200"></td>
+                                                <td align="center"><img src="<?= base_url() ?>/img/<?= $value['img_product']; ?>" style="border-radius: 10px;" width="150" height="100"></td>
                                                 <td><?= $value['nama_product']; ?></td>
                                                 <td>Rp. <?= format_rupiah($value['harga_product']); ?></td>
                                                 <td align="center">
-                                                    <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_product']; ?>" class="btn btn-warning btn-sm">Edit</button>
+                                                    <button type="button" data-toggle="modal" data-target="#modalEdit<?= $value['id_product']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
 
-                                                    <a href="<?= base_url(); ?>/User/hapus_product/<?= $value['id_kategori']; ?>/<?= $value['id_product']; ?>" class="btn btn-danger btn-sm konfirm"> Hapus</a>
+                                                    <a href="<?= base_url(); ?>/User/hapus_product/<?= $value['id_product']; ?>" class="btn btn-danger btn-sm konfirm"><i class="fas fa-trash"></i></a>
 
                                                 </td>
                                         </tr>
@@ -157,7 +158,7 @@ foreach ($get_product as $key => $value) : $no++; ?>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <?= form_open_multipart('User/edit_product/' . $value['id_kategori'] . '/' . $value['id_product']) ?>
+                        <?= form_open_multipart('User/edit_product/' . $value['id_product']) ?>
 
 
                         <div class="form-group col-md-12">
