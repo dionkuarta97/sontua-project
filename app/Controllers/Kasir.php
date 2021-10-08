@@ -26,6 +26,7 @@ class Kasir extends BaseController
         $total_lunas = array();
         $total_belum = array();
         $order_lunas = array();
+        $order_bayar = array();
         $total_harga_lunas = array();
         $total_harga_bayar = array();
         // print_r(count($kategori));
